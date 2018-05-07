@@ -25,25 +25,23 @@ class responses
 
 	function __construct(){
 		$this->holidays = array(
-			date("Y")."-01-01", // this is new years day
-      date("Y").-"-12-25" // this is christmas day
-		  //Fill the array with all the holidays according to the law
+			date('Y-01-01'), // this is new years day
+			date('Y-12-25') // this is christmas day
+			//Fill the array with all the holidays according to the law
 		);
 	}
 
 	public function getResp(){ // calculates the date and returns the according response
-		$fPayDay = date("Y-m-") . 15; // first payday of month is the 15th
-		$lPayDay = date("Y-m-") . date('t'); // last payday of the month is on the last day of the month
-		$payDays = array($fPayDay, $lPayDay); // put both of them in an array
-		$payDays[0] = $this->getLastPayDay($payDays[0]);
-		$payDays[1] = $this->getLastPayDay($payDays[1]); // replace them with the actual paydays of the month
+		// set $fPayDay and $lPayDay with the actual paydays of the month
+		$fPayDay = $this->getLastPayDay(date("Y-m-15"));// first payday of month is the 15th
+		$lPayDay = $this->getLastPayDay(date("Y-m-t")); // last payday of the month is on the last day of the month
 
 		$now = time(); // or your date as well
-		$DF1 = $this->timeToDays($now - strtotime($payDays[0])); // calculate de difference from current date to payday (in days)
-		$DF2 = $this->timeToDays($now - strtotime($payDays[1]));
+		$DF1 = $this->timeToDays($now - strtotime($fPayDay)); // calculate de difference from current date to payday (in days)
+		$DF2 = $this->timeToDays($now - strtotime($lPayDay));
 		$closer = $this->getCloserDate($DF1, $DF2); //to know which one is closer
 
-		if (in_array(date('Y-m-j'), $payDays)) // if today is in the array, we're on a payday
+		if (in_array(date('Y-m-j'), array($fPayDay, $lPayDay) )) // if today is in the array, we're on a payday
 		{
 			$selected = $this->positiveResponses;
 		}
@@ -72,7 +70,7 @@ class responses
 
 	function getLastPayDay($_date){ //checks in weekends and holidays to know the exact payday
 		while ($this->getWeekday($_date) == 'Sat' || $this->getWeekday($_date) == 'Sun' || in_array($_date, $this->holidays)) {
-      // if it is a saturday, sunday or a holiday we substract one day from the date.
+			// if it is a saturday, sunday or a holiday we substract one day from the date.
 			$_date = date('Y-m-j', strtotime('-1 day', strtotime($_date)));
 		}
 		return $_date;
