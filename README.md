@@ -6,3 +6,4 @@ Todos los comentarios están en inglés, lo siento.
 Este código usa [CodeBird](https://github.com/jublonet/codebird-php) para hacer los tweets.    
 
 Este código es público para propósito de entendimiento del mismo, cualquier duda de su funcionamiento puede ser atendida en mi twitter.    
+Pull requests are welcomed.
