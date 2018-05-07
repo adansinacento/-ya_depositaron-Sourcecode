@@ -41,7 +41,7 @@ class responses
 		$DF2 = $this->timeToDays($now - strtotime($lPayDay));
 		$closer = $this->getCloserDate($DF1, $DF2); //to know which one is closer
 
-		if (in_array(date('Y-m-j'), $payDays)) // if today is in the array, we're on a payday
+		if (in_array(date('Y-m-j'), array($fPayDay, $lPayDay) )) // if today is in the array, we're on a payday
 		{
 			$selected = $this->positiveResponses;
 		}
