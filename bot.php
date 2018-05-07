@@ -65,7 +65,7 @@ class responses
 	}
 
 	function getWeekday($_date) { // return weekday according to args
-    	return date('D', strtotime($_date));
+    		return date('D', strtotime($_date));
 	}
 
 	function getLastPayDay($_date){ //checks in weekends and holidays to know the exact payday
@@ -82,7 +82,7 @@ class responses
 }
 $resp = new responses(); // declare the object
 $params = array(
-  'status' => $resp->getResp() // get the response according to the day in the previewsly defined method
+	'status' => $resp->getResp() // get the response according to the day in the previewsly defined method
 );
 $reply = $cb->statuses_update($params); // send the tweet
 ?>
